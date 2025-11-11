@@ -1,5 +1,6 @@
 package it.unibo.mvc;
 
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -32,9 +33,18 @@ public class MiniGUI {
         final JPanel canvas = new JPanel();
         canvas.setLayout(new BorderLayout());
         final JButton write = new JButton("Print a random number on standard output");
-        canvas.add(write, BorderLayout.CENTER);
+        //canvas.add(write, BorderLayout.CENTER);
         frame.setContentPane(canvas);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        /*
+         * new jPanel
+         */
+        final JPanel panel = new JPanel();
+        panel.setLayout(new BoxLayout(panel, BoxLayout.X_AXIS));
+        canvas.add(panel, BorderLayout.CENTER);
+        frame.setContentPane(panel);
+        panel.add(write);
         /*
          * Handlers
          */
@@ -69,11 +79,14 @@ public class MiniGUI {
         /*
          * Resize the frame to minimum size
          */
-        frame.pack();
+        frame.setMinimumSize(frame.getMinimumSize());
+
+        //frame.pack();
         /*
          * OK, ready to pull the frame onscreen
          */
         frame.setVisible(true);
+
     }
 
     /**
