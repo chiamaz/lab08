@@ -4,6 +4,7 @@ import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Toolkit;
@@ -43,15 +44,19 @@ public class MiniGUI {
         final JPanel panel = new JPanel();
         panel.setLayout(new BoxLayout(panel, BoxLayout.X_AXIS));
         canvas.add(panel, BorderLayout.CENTER);
-        frame.setContentPane(panel);
         panel.add(write);
+        final JTextField text = new JTextField("Result");
+        canvas.add(text, BorderLayout.NORTH);
+
         /*
          * Handlers
          */
         write.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(final ActionEvent e) {
-                System.out.println(randomGenerator.nextInt());
+                final int r = randomGenerator.nextInt();
+                System.out.println(r); //NOPMD
+                text.setText(Integer.toString(r));
             }
         });
     }
@@ -79,9 +84,7 @@ public class MiniGUI {
         /*
          * Resize the frame to minimum size
          */
-        frame.setMinimumSize(frame.getMinimumSize());
-
-        //frame.pack();
+        frame.pack();
         /*
          * OK, ready to pull the frame onscreen
          */
