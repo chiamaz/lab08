@@ -16,11 +16,16 @@ import it.unibo.deathnote.impl.ImplDeathNote;
 
 class TestDeathNote {
     private static final int RULE = 3;
+    private static final int SLEEP1 = 100;
+    private static final int SLEEP2 = 6100;
     private static final String CAUSE1 = "shot";
     private static final String CAUSE2 = "karting accident";
     private static final String CAUSE_DEF = "heart attack";
     private static final String NAME1 = "Mario";  
     private static final String NAME2 = "Jessica";  
+    private static final String DETAILS1 = "ran for too long";
+    private static final String DETAILS2 = "out of breath";
+
     private DeathNote deathNote;
 
     @BeforeEach
@@ -80,14 +85,43 @@ class TestDeathNote {
         //deathNote.writeDeathCause(CAUSE2);
         assertEquals(deathNote.writeDeathCause(CAUSE2), true);
         assertEquals(deathNote.getDeathCause(NAME2), CAUSE2);
-        //RICONTROLLA
         try {
-            Thread.sleep(100);
+            Thread.sleep(SLEEP1);
         } catch (InterruptedException e) {
            throw new IllegalArgumentException();
         }
         deathNote.writeDeathCause(CAUSE1);
         assertEquals(deathNote.getDeathCause(NAME2), CAUSE2);
+
+
+    }
+
+    @Test
+    public void testDetails(){
+        assertThrows(IllegalArgumentException.class, new Executable() {
+
+            @Override
+            public void execute() throws Throwable {
+                deathNote.getDeathDetails(NAME1);
+            }
+            
+        });
+        
+        deathNote.writeName(NAME1);
+        assertEquals(deathNote.getDeathDetails(NAME1), " ");
+        //deathNote.writeDetails(DETAILS);
+        assertEquals(deathNote.writeDetails(DETAILS1), true);
+        assertEquals(deathNote.getDeathDetails(NAME1), DETAILS1);
+        
+        deathNote.writeName(NAME2);
+        try {
+            Thread.sleep(SLEEP2);
+        } catch (InterruptedException e) {
+           throw new IllegalArgumentException();
+        }
+        deathNote.writeDetails(DETAILS2);
+        assertEquals(deathNote.getDeathDetails(NAME2), DETAILS1);
+
     }
 
 }
