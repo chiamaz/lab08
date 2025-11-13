@@ -7,7 +7,7 @@ import it.unibo.deathnote.api.DeathNote;
 
 public class ImplDeathNote implements DeathNote{
     private static final long MSEC1 = 40;
-    private static final long MSEC2 = 6400;
+    private static final long MSEC2 = 6040;
     private static final String CAUSE_DEF = "heart attack";
 
     private Map<String, Victim> map = new HashMap<>();
@@ -28,7 +28,7 @@ public class ImplDeathNote implements DeathNote{
         if (name == null){
             throw new NullPointerException("the given name is null");
         }
-        map.put(name, null);
+        map.put(name, new Victim());
         this.lastName = name;
         time1 = System.currentTimeMillis();
     }
@@ -43,7 +43,7 @@ public class ImplDeathNote implements DeathNote{
 
         if(time2 - time1 <= MSEC1){
             map.get(lastName).setCause(cause);
-            //forse lastname=null
+            //lastName=null;
             return true;
         }
         else{
@@ -61,6 +61,7 @@ public class ImplDeathNote implements DeathNote{
         
         if(time2 - time1 <= MSEC2){
             map.get(lastName).setDetails(details);
+            //lastName=null;
             return true;
         }
         else{
@@ -70,7 +71,7 @@ public class ImplDeathNote implements DeathNote{
 
     @Override
     public String getDeathCause(String name) {
-        if(this.isNameWritten(name) == false){
+        if(this.isNameWritten(name) == false || name == null){
             throw new IllegalArgumentException("the name is not in the deathnote");
         }
         final String cause = map.get(name).getCause();

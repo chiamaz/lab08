@@ -4,9 +4,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertThrowsExactly;
 
-import java.lang.reflect.Array;
-import java.util.ArrayList;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.function.Executable;
@@ -120,7 +117,8 @@ class TestDeathNote {
            throw new IllegalArgumentException();
         }
         deathNote.writeDetails(DETAILS2);
-        assertEquals(deathNote.getDeathDetails(NAME2), DETAILS1);
+        assertEquals(deathNote.writeDetails(DETAILS2), false);
+        assertEquals(deathNote.getDeathDetails(NAME2), " ");
 
     }
 
