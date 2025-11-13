@@ -5,28 +5,30 @@ import java.util.Map;
 
 import it.unibo.deathnote.api.DeathNote;
 
-public class ImplDeathNote implements DeathNote{
+/**
+ * Implementation of DeathNote.java.
+ */
+public final class ImplDeathNote implements DeathNote {
     private static final long MSEC1 = 40;
     private static final long MSEC2 = 6040;
     private static final String CAUSE_DEF = "heart attack";
 
-    private Map<String, Victim> map = new HashMap<>();
+    private final Map<String, Victim> map = new HashMap<>();
     private long time1;
-    private long time2;
     private String lastName;
 
     @Override
-    public String getRule(int ruleNumber) {
-        if(ruleNumber < 1 || ruleNumber > RULES.size()){
+    public String getRule(final int ruleNumber) {
+        if (ruleNumber < 1 || ruleNumber > RULES.size()) {
             throw new IllegalArgumentException("the given rule number is smaller than 1 or larger than the number of rules");
         }
         return RULES.get(ruleNumber);
     }
-        
+
     @Override
-    public void writeName(String name) {
-        if (name == null){
-            throw new NullPointerException("the given name is null");
+    public void writeName(final String name) {
+        if (name == null) {
+            throw new NullPointerException("the given name is null"); //NOPMD
         }
         map.put(name, new Victim());
         this.lastName = name;
@@ -34,74 +36,68 @@ public class ImplDeathNote implements DeathNote{
     }
 
     @Override
-    public boolean writeDeathCause(String cause) {
-        if (cause == null || map.isEmpty()){
+    public boolean writeDeathCause(final String cause) {
+        if (cause == null || map.isEmpty()) {
             throw new IllegalStateException("the given cause is null or there is no name written");
         }
-             
-        time2 = System.currentTimeMillis();
 
-        if(time2 - time1 <= MSEC1){
+        final long time2 = System.currentTimeMillis();
+
+        if (time2 - time1 <= MSEC1) {
             map.get(lastName).setCause(cause);
             //lastName=null;
             return true;
-        }
-        else{
+        } else {
             return false;
         }
     }
 
     @Override
-    public boolean writeDetails(String details) {
-        if (details == null || map.isEmpty()){
+    public boolean writeDetails(final String details) {
+        if (details == null || map.isEmpty()) {
             throw new IllegalStateException("the given details is null or there is no name written");
         }
-             
-        time2 = System.currentTimeMillis();
-        
-        if(time2 - time1 <= MSEC2){
+
+        final long time2 = System.currentTimeMillis();
+
+        if (time2 - time1 <= MSEC2) {
             map.get(lastName).setDetails(details);
             //lastName=null;
             return true;
-        }
-        else{
+        } else {
             return false;
-        }    
+        }
     }
 
     @Override
-    public String getDeathCause(String name) {
-        if(this.isNameWritten(name) == false || name == null){
+    public String getDeathCause(final String name) {
+        if (!isNameWritten(name)) {
             throw new IllegalArgumentException("the name is not in the deathnote");
         }
         final String cause = map.get(name).getCause();
-        if(cause == null){
+        if (cause == null) {
             return CAUSE_DEF;
-        }
-        else{
+        } else {
             return cause;
         }
-
     }
 
     @Override
-    public String getDeathDetails(String name) {
-        if(this.isNameWritten(name) == false){
+    public String getDeathDetails(final String name) {
+        if (!isNameWritten(name)) {
             throw new IllegalArgumentException("the name is not in the deathnote");
         }
         final String detail = map.get(name).getDetails();
-        if(detail == null){
+        if (detail == null) {
             return " ";
-        }
-        else{
+        } else {
             return detail;
         }
     }
 
     @Override
-    public boolean isNameWritten(String name) {
+    public boolean isNameWritten(final String name) {
         return map.containsKey(name);
     }
-
 
 }
