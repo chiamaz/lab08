@@ -89,11 +89,11 @@ class TestDeathNote {
 
     @Test
     void testDetails() {
-        assertThrows(IllegalArgumentException.class, new Executable() {
+        assertThrows(IllegalStateException.class, new Executable() {
 
             @Override
             public void execute() throws Throwable {
-                deathNote.getDeathDetails(NAME1);
+                deathNote.writeDetails(DETAILS1);
             }
         });
         deathNote.writeName(NAME1);
