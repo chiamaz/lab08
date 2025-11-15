@@ -11,6 +11,10 @@ public class DrawNumberStandardOutputView implements DrawNumberView{
 
     private DrawNumberController controller;
 
+    public DrawNumberStandardOutputView() {
+
+    }
+    
     @Override
     public void result(final DrawResult res) {
         System.out.println(res.getDescription());
