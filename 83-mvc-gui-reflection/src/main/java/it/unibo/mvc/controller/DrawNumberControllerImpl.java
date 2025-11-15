@@ -5,6 +5,7 @@ import it.unibo.mvc.api.DrawNumberController;
 import it.unibo.mvc.api.DrawNumberView;
 import it.unibo.mvc.api.DrawResult;
 
+import java.nio.channels.IllegalSelectorException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -16,9 +17,7 @@ import java.util.Objects;
 public final class DrawNumberControllerImpl implements DrawNumberController {
 
     private final DrawNumber model;
-    //private DrawNumberView view;
-    //modifica per avere più view
-    private List<DrawNumberView> views;
+    private final List<DrawNumberView> views;
 
     /**
      * Builds a new game controller provided a game model.
@@ -41,9 +40,14 @@ public final class DrawNumberControllerImpl implements DrawNumberController {
     @Override
     public void newAttempt(final int n) {
         final DrawResult result = this.model.attempt(n);
-        for (DrawNumberView view : this.views) {
-            Objects.requireNonNull(view, "There is no view attached!").result(result);
+        if (!this.views.isEmpty()) {
+            for (DrawNumberView view : this.views) {
+                view.result(result);
+            }
+        } else {
+            throw new IllegalStateException("There is no view attached");
         }
+
     }
 
     @Override
