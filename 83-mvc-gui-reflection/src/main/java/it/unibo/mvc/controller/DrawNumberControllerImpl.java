@@ -47,7 +47,6 @@ public final class DrawNumberControllerImpl implements DrawNumberController {
         } else {
             throw new IllegalStateException("There is no view attached");
         }
-
     }
 
     @Override
