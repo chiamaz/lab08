@@ -22,7 +22,7 @@ public final class ImplDeathNote implements DeathNote {
         if (ruleNumber < 1 || ruleNumber > RULES.size()) {
             throw new IllegalArgumentException("the given rule number is smaller than 1 or larger than the number of rules");
         }
-        return RULES.get(ruleNumber);
+        return RULES.get(ruleNumber - 1);
     }
 
     @Override

@@ -54,10 +54,6 @@ public final class LaunchApp {
             throw new IllegalStateException("Cannot find the constructor", e);
         }
 
-        /*for (int i = 0; i <= LIMIT; i++) {
-            app.addView(new DrawNumberSwingView());
-            app.addView(new DrawNumberStandardOutputView());
-        }*/
         final Object o1;
         final Object o2;
 

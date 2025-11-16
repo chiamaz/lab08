@@ -75,7 +75,6 @@ class TestDeathNote {
         deathNote.writeName(NAME1);
         assertEquals(deathNote.getDeathCause(NAME1), CAUSE_DEF);
         deathNote.writeName(NAME2);
-        //deathNote.writeDeathCause(CAUSE2);
         assertTrue(deathNote.writeDeathCause(CAUSE2));
         assertEquals(deathNote.getDeathCause(NAME2), CAUSE2);
         try {
@@ -98,7 +97,6 @@ class TestDeathNote {
         });
         deathNote.writeName(NAME1);
         assertEquals(deathNote.getDeathDetails(NAME1), " ");
-        //deathNote.writeDetails(DETAILS);
         assertTrue(deathNote.writeDetails(DETAILS1));
         assertEquals(deathNote.getDeathDetails(NAME1), DETAILS1);
         deathNote.writeName(NAME2);
@@ -107,7 +105,6 @@ class TestDeathNote {
         } catch (final InterruptedException e) {
            throw (IllegalArgumentException) new IllegalArgumentException().initCause(e);
         }
-        deathNote.writeDetails(DETAILS2);
         assertFalse(deathNote.writeDetails(DETAILS2));
         assertEquals(deathNote.getDeathDetails(NAME2), " ");
     }
