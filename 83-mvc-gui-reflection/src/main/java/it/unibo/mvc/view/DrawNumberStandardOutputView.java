@@ -1,5 +1,7 @@
 package it.unibo.mvc.view;
 
+import java.util.logging.Logger;
+
 import it.unibo.mvc.api.DrawNumberController;
 import it.unibo.mvc.api.DrawNumberView;
 import it.unibo.mvc.api.DrawResult;
@@ -7,26 +9,22 @@ import it.unibo.mvc.api.DrawResult;
 /**
  * Graphical {@link DrawNumberView} implementation, output only.
  */
-public class DrawNumberStandardOutputView implements DrawNumberView{
+public final class DrawNumberStandardOutputView implements DrawNumberView {
 
-    private DrawNumberController controller;
-
-    public DrawNumberStandardOutputView() {
-
-    }
-    
     @Override
     public void result(final DrawResult res) {
-        System.out.println(res.getDescription());
+        final Logger log = Logger.getLogger(DrawNumberStandardOutputView.class.getName());
+        log.fine(res.getDescription());
     }
 
     @Override
     public void setController(final DrawNumberController observer) {
-        this.controller = observer;
+        //not used
     }
 
     @Override
     public void start() {
-        System.out.println("DrawNumberStandardOutputView started");
+        final Logger log = Logger.getLogger(DrawNumberStandardOutputView.class.getName());
+        log.fine("DrawNumberStandardOutputView started");
     }
 }

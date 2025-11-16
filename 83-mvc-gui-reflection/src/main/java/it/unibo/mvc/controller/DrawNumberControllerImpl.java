@@ -5,7 +5,6 @@ import it.unibo.mvc.api.DrawNumberController;
 import it.unibo.mvc.api.DrawNumberView;
 import it.unibo.mvc.api.DrawResult;
 
-import java.nio.channels.IllegalSelectorException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -41,7 +40,7 @@ public final class DrawNumberControllerImpl implements DrawNumberController {
     public void newAttempt(final int n) {
         final DrawResult result = this.model.attempt(n);
         if (!this.views.isEmpty()) {
-            for (DrawNumberView view : this.views) {
+            for (final DrawNumberView view : this.views) {
                 view.result(result);
             }
         } else {

@@ -16,7 +16,6 @@ public final class LaunchApp {
 
     private static final int LIMIT = 2;
 
-
     private LaunchApp() { }
 
     /**
@@ -37,16 +36,16 @@ public final class LaunchApp {
         //loading delle classi
         final Class<?> c1;
         final Class<?> c2;
-        
-        final Constructor<?> cns1;
-        final Constructor<?> cns2;
-        
+
         try {
             c1 = Class.forName("it.unibo.mvc.view.DrawNumberSwingView");
             c2 = Class.forName("it.unibo.mvc.view.DrawNumberStandardOutputView");
         } catch (final ClassNotFoundException e) {
             throw new IllegalStateException("Cannot load view classes", e);
         }
+
+        final Constructor<?> cns1;
+        final Constructor<?> cns2;
 
         try {
             cns1 = c1.getConstructor();
@@ -55,10 +54,23 @@ public final class LaunchApp {
             throw new IllegalStateException("Cannot find the constructor", e);
         }
 
-        for (int i=0; i<=LIMIT; i++) {
+        /*for (int i = 0; i <= LIMIT; i++) {
             app.addView(new DrawNumberSwingView());
             app.addView(new DrawNumberStandardOutputView());
-        }
+        }*/
+        final Object o1;
+        final Object o2;
 
+        try {
+            o1 = cns1.newInstance();
+            o2 = cns2.newInstance();
+        } catch (InstantiationException | IllegalAccessException 
+         | IllegalArgumentException | InvocationTargetException e) { //multicatch
+            throw new IllegalStateException("Cannot instantiate view", e);
+        }
+        for (int i = 0; i <= LIMIT; i++) {
+            app.addView((DrawNumberSwingView) o1);
+            app.addView((DrawNumberStandardOutputView) o2);
+        }
     }
 }

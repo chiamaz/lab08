@@ -11,7 +11,7 @@ public interface DrawNumberView {
      * @param observer the controller to attach
      */
     void setController(DrawNumberController observer);
-    
+
     /**
      * This method is called before the UI is used. It should finalize its status (if needed).
      */
